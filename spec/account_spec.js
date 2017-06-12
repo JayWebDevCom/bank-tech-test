@@ -48,7 +48,8 @@ describe('Accounts Process Transactions', function(){
   it('can process a transaction deposit object',function(){
     var transaction = {
       getType : function() { return 'Deposit' },
-      getValue : function() { return 200 }
+      getValue : function() { return 200 },
+      getDate : function() { return ''; }
     }
     account.processTransaction(transaction)
     expect(account.getBalance()).toEqual(200)
@@ -57,10 +58,24 @@ describe('Accounts Process Transactions', function(){
   it('can process a transaction withdrawal object',function(){
     var transaction = {
       getType : function() { return 'Withdrawal' },
-      getValue : function() { return 100 }
+      getValue : function() { return 100 },
+      getDate : function() { return ''; }
     }
     account.processTransaction(transaction)
     expect(account.getBalance()).toEqual(-100)
   });
+
+  it('can process a transaction withdrawal object and record the transaction',function(){
+    var transaction = {
+      getType : function() { return 'Withdrawal' },
+      getValue : function() { return 100 },
+      getDate : function() { return '01/10/2017'; }
+    }
+    account.processTransaction(transaction)
+    expect(account.getBalance()).toEqual(-100)
+    expect(account._accountHistory[0]).toEqual('01/10/2017 || || 100 || -100')
+  });
+
+
 
 })
