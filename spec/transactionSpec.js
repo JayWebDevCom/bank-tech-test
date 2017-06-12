@@ -44,4 +44,14 @@ describe('Transaction', function(){
     expect(transaction.getValue()).toEqual(500)
   });
 
+  it('takes a date attribute', function(){
+    var transaction = new Transaction('Deposit', 500, '2016/01/17');
+    expect(transaction._date).toBeTruthy();
+  });
+
+  it('getDate method returns the date', function(){
+    var transaction = new Transaction('Deposit', 500, '2011/01/17');
+    expect(transaction.getDate()).toEqual('2011/01/17');
+  });
+
 });
