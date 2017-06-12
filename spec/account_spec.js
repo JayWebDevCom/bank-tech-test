@@ -1,0 +1,28 @@
+require('../lib/account')
+var account;
+
+describe('Account', function(){
+
+  beforeEach(function(){
+    account = new Account();
+  });
+
+  it('can be instantiated', function(){
+    expect(account instanceof Account).toBe(true);
+  })
+
+  it('has a default balace of 0', function(){
+    expect(account._balance).toEqual(0);
+  })
+
+  it('can be instantiated', function(){
+    var account = new Account(200)
+    expect(account._balance).toEqual(200);
+  })
+
+  it('can get its balance', function(){
+    var account = new Account(200)
+    expect(account.getBalance()).toEqual(200);
+  })
+
+})

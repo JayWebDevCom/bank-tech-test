@@ -1,8 +1,7 @@
 require('../lib/transaction');
 var transaction;
 
-
-describe('transaction', function(){
+describe('Transaction', function(){
 
   beforeEach(function(){
     transaction = new Transaction();
@@ -18,6 +17,11 @@ describe('transaction', function(){
   });
 
   it('can be of type Withdrawal', function(){
+    var transaction = new Transaction('Withdrawal')
+    expect(transaction._type).toEqual('Withdrawal');
+  });
+
+  it('can get its type', function(){
     var transaction = new Transaction('Withdrawal')
     expect(transaction.getType()).toEqual('Withdrawal');
   });

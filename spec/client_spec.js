@@ -1,7 +1,7 @@
 require('../lib/client');
 var client;
 
-describe('client', function(){
+describe('Client', function(){
   beforeEach(function(){
     client = new Client();
   })
