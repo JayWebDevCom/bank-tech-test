@@ -54,4 +54,16 @@ describe('Transaction', function(){
     expect(transaction.getDate()).toEqual('2011/01/17');
   });
 
+  it('setBalance method records balance', function(){
+    var balance = 345
+    transaction.setBalance(balance);
+    expect(transaction._balance).toEqual(balance);
+  });
+
+  it('getdBalance method records balance', function(){
+    var balance = 346
+    transaction.setBalance(balance);
+    expect(transaction.getBalance()).toEqual(balance);
+  });
+
 });

@@ -1,8 +1,14 @@
 var Account = require('../lib/account')
 var account;
-var accountHistoryConstructor = function() {}
+var accountHistoryConstructor = function() {
+  this._transactions = []
+}
 accountHistoryConstructor.prototype.getTransactions = function() {
-  return []
+  return this._transactions
+}
+
+accountHistoryConstructor.prototype.record = function(object) {
+  this._transactions.push(object)
 }
 
 describe('Account', function(){
@@ -35,9 +41,9 @@ describe('Account', function(){
     }).toThrow('Account balance must not be negative')
   })
 
-  it('has a transaction history array', function(){
+  it('has a transaction history object', function(){
     var account = new Account(0, accountHistoryConstructor)
-    expect(account._accountHistory.length).toEqual(0);
+    expect(account._accountHistoryObject instanceof accountHistoryConstructor).toBe(true);
   })
 })
 
@@ -57,7 +63,7 @@ describe('Accounts Process Transactions', function(){
     expect(account.getBalance()).toEqual(200)
   });
 
-  it('can process a transaction withdrawal object',function(){
+  it('balance changes appropriately on processing a transaction',function(){
     var transaction = {
       getType : function() { return 'Withdrawal' },
       getValue : function() { return 100 },
@@ -74,7 +80,8 @@ describe('Accounts Process Transactions', function(){
       getDate : function() { return '10/10/2017'; }
     }
     account.processTransaction(transaction)
-    expect(account._accountHistory[0]).toEqual('10/10/2017 || 250 || || 250')
+    expect(account._accountHistoryObject.getTransactions()[0]).toEqual(transaction)
+    expect(account.getBalance()).toEqual(250);
   });
 
     it('can process a transaction withdrawal object and record the transaction',function(){
@@ -84,7 +91,8 @@ describe('Accounts Process Transactions', function(){
       getDate : function() { return '01/10/2017'; }
     }
     account.processTransaction(transaction)
-    expect(account._accountHistory[0]).toEqual('01/10/2017 || || 100 || -100')
+    expect(account._accountHistoryObject.getTransactions()[0]).toEqual(transaction)
+    expect(account.getBalance()).toEqual(-100);
   });
 
 })
@@ -124,7 +132,7 @@ describe('Account Feature Spec', function(){
     var fakePrinter = {
       printStatement : function() { return textToTestAgainst }
     }
-    
+
     expect(account.getAccountHistory(fakePrinter)).toEqual(textToTestAgainst)
   })
 })
