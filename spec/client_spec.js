@@ -1,4 +1,5 @@
-
+var Client = require('../lib/client');
+var client;
 
 describe('client', function(){
   beforeEach(function(){
