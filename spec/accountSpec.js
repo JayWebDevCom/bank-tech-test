@@ -1,10 +1,14 @@
 var Account = require('../lib/account')
 var account;
+var accountHistoryConstructor = function() {}
+accountHistoryConstructor.prototype.getTransactions = function() {
+  return []
+}
 
 describe('Account', function(){
 
   beforeEach(function(){
-    account = new Account();
+    account = new Account(0, accountHistoryConstructor);
   });
 
   it('can be instantiated', function(){
@@ -16,23 +20,23 @@ describe('Account', function(){
   })
 
   it('can be instantiated with an amount', function(){
-    var account = new Account(200)
+    var account = new Account(200, accountHistoryConstructor)
     expect(account._balance).toEqual(200);
   })
 
   it('can get its balance', function(){
-    var account = new Account(200)
+    var account = new Account(200, accountHistoryConstructor)
     expect(account.getBalance()).toEqual(200);
   })
 
   it('cannot be instantiated with a negative amount', function(){
     expect(function(){
-      var account = new Account(-1)
+      var account = new Account(-1, accountHistoryConstructor)
     }).toThrow('Account balance must not be negative')
   })
 
   it('has a transaction history array', function(){
-    var account = new Account()
+    var account = new Account(0, accountHistoryConstructor)
     expect(account._accountHistory.length).toEqual(0);
   })
 
@@ -41,7 +45,7 @@ describe('Account', function(){
 describe('Accounts Process Transactions', function(){
 
   beforeEach(function(){
-    account = new Account();
+    account = new Account(0, accountHistoryConstructor);
   });
 
   it('can process a transaction deposit object',function(){
@@ -88,7 +92,7 @@ describe('Accounts Process Transactions', function(){
 
 describe('Account Feature Spec', function(){
   beforeEach(function(){
-    account = new Account();
+    account = new Account(0, accountHistoryConstructor);
   });
   it('records several transactions', function(){
     expect(account.getBalance()).toEqual(0)

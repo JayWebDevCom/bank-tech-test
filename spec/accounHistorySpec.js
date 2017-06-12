@@ -11,4 +11,12 @@ describe('AccountHistory', function(){
     expect(accountHistory instanceof AccountHistory).toBe(true)
   })
 
+  it('has an empty transactions array attribute', function(){
+    expect(accountHistory._transactions.length).toEqual(0)
+  })
+
+  it('getTransactions function returns the transactions array attribute', function(){
+    expect(accountHistory.getTransactions().length).toEqual(0)
+  })
+
 })
