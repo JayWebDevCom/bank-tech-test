@@ -1,4 +1,4 @@
-require('../lib/transaction');
+var Transaction = require('../lib/transaction');
 var transaction;
 
 describe('Transaction', function(){

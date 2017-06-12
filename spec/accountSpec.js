@@ -1,4 +1,4 @@
-require('../lib/account')
+var Account = require('../lib/account')
 var account;
 
 describe('Account', function(){
@@ -118,6 +118,9 @@ describe('Account Feature Spec', function(){
     +transaction2.getDate() +" || "+transaction2.getValue()+" || || 250\n"
     +transaction1.getDate() +" || "+transaction1.getValue()+" || || 100"
 
-    expect(account.getAccountHistory()).toEqual(textToTestAgainst)
+    var fakePrinter = {
+      printStatement : function() { return textToTestAgainst }
+    }
+    expect(account.getAccountHistory(fakePrinter)).toEqual(textToTestAgainst)
   })
 })

@@ -2,7 +2,7 @@ require('../lib/transactionTypeGetter');
 var transactionTypeGetter;
 
 describe('transactionTypeGetter', function(){
-  
+
   beforeEach(function(){
     transactionTypeGetter = new TransactionTypeGetter();
   });

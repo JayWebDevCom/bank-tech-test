@@ -1,4 +1,4 @@
-require('../lib/printer');
+var Printer = require('../lib/printer');
 var printer;
 
 describe('Printer', function(){
