@@ -39,7 +39,6 @@ describe('Account', function(){
     var account = new Account(0, accountHistoryConstructor)
     expect(account._accountHistory.length).toEqual(0);
   })
-
 })
 
 describe('Accounts Process Transactions', function(){
@@ -125,6 +124,7 @@ describe('Account Feature Spec', function(){
     var fakePrinter = {
       printStatement : function() { return textToTestAgainst }
     }
+    
     expect(account.getAccountHistory(fakePrinter)).toEqual(textToTestAgainst)
   })
 })
