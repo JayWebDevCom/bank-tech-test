@@ -1,5 +1,4 @@
-var Client = require('../lib/client');
-var client;
+var file = require('../lib/client');
 
 describe('client', function(){
   beforeEach(function(){
