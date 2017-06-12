@@ -15,7 +15,7 @@ describe('Account', function(){
     expect(account._balance).toEqual(0);
   })
 
-  it('can be instantiated', function(){
+  it('can be instantiated with an amount', function(){
     var account = new Account(200)
     expect(account._balance).toEqual(200);
   })
@@ -25,4 +25,17 @@ describe('Account', function(){
     expect(account.getBalance()).toEqual(200);
   })
 
+  it('cannot be instantiated with a negative amount', function(){
+    expect(function(){
+      var account = new Account(-1)
+    }).toThrow('Account balance must not be negative')
+  })
+
+})
+
+describe('Accounts Process Transactions', function(){
+  it('can process a transaction object',function(){
+    account.processTransaction(new Transaction('Deposit', 200))
+    expect(account.getBalance()).toEqual(200)
+  })
 })
