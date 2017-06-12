@@ -30,12 +30,16 @@ describe('Account', function(){
       var account = new Account(-1)
     }).toThrow('Account balance must not be negative')
   })
-
 })
 
 describe('Accounts Process Transactions', function(){
   it('can process a transaction object',function(){
-    account.processTransaction(new Transaction('Deposit', 200))
+
+    var transaction = {}
+    transaction.getType = function() { return 'Deposit' }
+    transaction.getValue = function() { return 200 }
+
+    account.processTransaction(transaction)
     expect(account.getBalance()).toEqual(200)
   })
 })
