@@ -1,4 +1,8 @@
-require('../lib/transactionTypeGetter');
+var TransactionTypeGetter = require('../lib/transactionTypeGetter');
+
+console.log(TransactionTypeGetter)
+
+
 var transactionTypeGetter;
 
 describe('transactionTypeGetter', function(){
