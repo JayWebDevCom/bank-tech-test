@@ -12,8 +12,13 @@ describe('transaction', function(){
       var transaction = new Transaction('Deposit')
       expect(transaction.getType()).toEqual('Deposit');
   })
-  it('can be of type withdrawal', function(){
+  it('can be of type Withdrawal', function(){
       var transaction = new Transaction('Withdrawal')
-      expect(transaction.getType()).toEqual('Deposit');
+      expect(transaction.getType()).toEqual('Withdrawal');
+  })
+  it('can only be of type Withdrawal or Deposit', function(){
+      expect(function(){
+        var transaction = new Transaction('SomeOther')
+      }).toThrowError('Unknown Transaction Type');
   })
 })
