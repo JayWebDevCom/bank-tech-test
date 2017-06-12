@@ -8,8 +8,12 @@ describe('transaction', function(){
   it('can be instantiated', function(){
       expect(transaction instanceof Transaction).toBe(true);
   })
-  it('can beof type deposit', function(){
+  it('can be of type deposit', function(){
       var transaction = new Transaction('Deposit')
+      expect(transaction.getType()).toEqual('Deposit');
+  })
+  it('can be of type withdrawal', function(){
+      var transaction = new Transaction('Withdrawal')
       expect(transaction.getType()).toEqual('Deposit');
   })
 })
