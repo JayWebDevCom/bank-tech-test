@@ -15,10 +15,14 @@ describe('Printer', function(){
     expect(printer.HEADER).toEqual('date || credit || debit || balance');
   })
 
-  it('takes and prints an array', function(){
+  it('takes and prints an array with a header', function(){
+    var header = 'date || credit || debit || balance';
     var textToBePrinted = ['apple', 'pear', 'berry', 'grape']
-    var testText = textToBePrinted.join('\n')
-    expect(printer.printStatement(textToBePrinted)).toEqual(testText)
+    var textToBeReturned = ['apple', 'pear', 'berry', 'grape']
+    textToBeReturned.push(header);
+    textToBeReturned.reverse();
+    var textToBeReturned = textToBeReturned.join('\n');
+    expect(printer.printStatement(textToBePrinted)).toEqual(textToBeReturned)
   })
 
 })
