@@ -37,14 +37,16 @@ describe('Printer', function(){
     }
 
     var transactionArray = [transaction1, transaction2, transaction3]
-
+    var accountHistoryObject = {
+      getTransactions : function() { return transactionArray; }
+    }
     var textToBeReturned =
     "date || credit || debit || balance\n"
     +transaction3.getDate() +" ||  || "+transaction3.getValue()+" || " + transaction3.getBalance() + "\n"
     +transaction2.getDate() +" ||  || "+transaction2.getValue()+" || " + transaction2.getBalance() + "\n"
     +transaction1.getDate() +" || "+transaction1.getValue()+" ||  || " + transaction1.getBalance() + "\n"
 
-    expect(printer.printStatement(transactionArray)).toEqual(textToBeReturned)
+    expect(printer.printStatement(accountHistoryObject)).toEqual(textToBeReturned)
   })
 
 })
