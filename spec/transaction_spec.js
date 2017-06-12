@@ -19,6 +19,6 @@ describe('transaction', function(){
   it('can only be of type Withdrawal or Deposit', function(){
       expect(function(){
         var transaction = new Transaction('SomeOther')
-      }).toThrowError('Unknown Transaction Type');
+      }).toThrow('Unknown Transaction Type');
   })
 })
