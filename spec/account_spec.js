@@ -35,9 +35,10 @@ describe('Account', function(){
 describe('Accounts Process Transactions', function(){
   it('can process a transaction object',function(){
 
-    var transaction = {}
-    transaction.getType = function() { return 'Deposit' }
-    transaction.getValue = function() { return 200 }
+    var transaction = {
+      getType : function() { return 'Deposit' },
+      getValue : function() { return 200 }
+    }
 
     account.processTransaction(transaction)
     expect(account.getBalance()).toEqual(200)
