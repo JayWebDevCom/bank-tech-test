@@ -30,17 +30,37 @@ describe('Account', function(){
       var account = new Account(-1)
     }).toThrow('Account balance must not be negative')
   })
+
+  it('has a transaction history array', function(){
+    var account = new Account()
+    expect(account._accountHistory.length).toEqual(0);
+  })
+
+
 })
 
 describe('Accounts Process Transactions', function(){
-  it('can process a transaction object',function(){
 
+  beforeEach(function(){
+    account = new Account();
+  });
+
+  it('can process a transaction deposit object',function(){
     var transaction = {
       getType : function() { return 'Deposit' },
       getValue : function() { return 200 }
     }
-
     account.processTransaction(transaction)
     expect(account.getBalance()).toEqual(200)
-  })
+  });
+
+  it('can process a transaction withdrawal object',function(){
+    var transaction = {
+      getType : function() { return 'Withdrawal' },
+      getValue : function() { return 100 }
+    }
+    account.processTransaction(transaction)
+    expect(account.getBalance()).toEqual(-100)
+  });
+
 })
