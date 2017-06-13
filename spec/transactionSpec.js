@@ -72,7 +72,7 @@ describe('Transaction', function () {
     expect(transaction._balance).toEqual(balance)
   })
 
-  it('getdBalance method records balance', function () {
+  it('getBalance method records balance', function () {
     var balance = 346
     transaction.setBalance(balance)
     expect(transaction.getBalance()).toEqual(balance);
