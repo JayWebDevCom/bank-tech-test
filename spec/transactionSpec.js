@@ -10,6 +10,10 @@ describe('Transaction', function () {
     expect(transaction instanceof Transaction).toBe(true)
   })
 
+  it('has a default value of 0 upon instantiation', function () {
+    expect(transaction._value).toEqual(0)
+  })
+
   it('cannot be instantiated without a date', function () {
     expect(function () {
       var transaction = new Transaction('Withdrawal', 0)
@@ -20,6 +24,20 @@ describe('Transaction', function () {
     expect(function () {
       var transaction = new Transaction('Withdrawal', 0, '2017/9/16')
     }).toThrowError('Invalid Date Entered')
+  })
+
+  it('can be instantiated with a value', function () {
+    var balance = 500
+    var transaction = new Transaction('Deposit', balance, '01/01/16')
+    expect(transaction).toBeTruthy()
+    expect(transaction._value).toEqual(balance)
+  })
+
+  it('cannot be instantiated with a negative ', function () {
+    var balance = -500
+    expect(function () {
+      var transaction = new Transaction('Deposit', balance, '01/01/16')
+    }).toThrowError('Value cannnot be negative')
   })
 
   it('can be of type deposit', function () {
@@ -41,13 +59,6 @@ describe('Transaction', function () {
     expect(function () {
       var transaction = new Transaction('SomeOther', 0, '01/01/16')
     }).toThrowError('Unknown Transaction Type')
-  })
-
-  it('can take a value', function () {
-    var balance = 500
-    var transaction = new Transaction('Deposit', balance, '01/01/16')
-    expect(transaction).toBeTruthy()
-    expect(transaction._value).toEqual(balance)
   })
 
   it('can get its value', function () {
