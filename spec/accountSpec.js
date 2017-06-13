@@ -140,6 +140,7 @@ describe('Account Feature Spec', function(){
       printStatement : function() { return textToTestAgainst }
     }
 
+    expect(account.getBalance()).toEqual(200)
     expect(account.getAccountHistory(fakePrinter)).toEqual(textToTestAgainst)
   })
 })

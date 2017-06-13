@@ -15,7 +15,7 @@ describe('Printer', function(){
     expect(printer.HEADER).toEqual('date || credit || debit || balance');
   })
 
-  it('takes and prints an array with a header', function(){
+  it('takes an object and formats and prints it\'s transaction information', function(){
 
     var transaction1 = {
       getType : function() { return 'Deposit' },
