@@ -57,7 +57,8 @@ describe('Accounts Process Transactions', function(){
     var transaction = {
       getType : function() { return 'Deposit' },
       getValue : function() { return 200 },
-      getDate : function() { return ''; }
+      getDate : function() { return ''; },
+      setBalance : function() {}
     }
     account.processTransaction(transaction)
     expect(account.getBalance()).toEqual(200)
@@ -67,7 +68,8 @@ describe('Accounts Process Transactions', function(){
     var transaction = {
       getType : function() { return 'Withdrawal' },
       getValue : function() { return 100 },
-      getDate : function() { return ''; }
+      getDate : function() { return ''; },
+      setBalance : function() {}
     }
     account.processTransaction(transaction)
     expect(account.getBalance()).toEqual(-100)
@@ -77,7 +79,8 @@ describe('Accounts Process Transactions', function(){
     var transaction = {
       getType : function() { return 'Deposit' },
       getValue : function() { return 250 },
-      getDate : function() { return '10/10/2017'; }
+      getDate : function() { return '10/10/2017'; },
+      setBalance : function() {}
     }
     account.processTransaction(transaction)
     expect(account._accountHistoryObject.getTransactions()[0]).toEqual(transaction)
@@ -88,7 +91,8 @@ describe('Accounts Process Transactions', function(){
     var transaction = {
       getType : function() { return 'Withdrawal' },
       getValue : function() { return 100 },
-      getDate : function() { return '01/10/2017'; }
+      getDate : function() { return '01/10/2017'; },
+      setBalance : function() {}
     }
     account.processTransaction(transaction)
     expect(account._accountHistoryObject.getTransactions()[0]).toEqual(transaction)
@@ -106,17 +110,20 @@ describe('Account Feature Spec', function(){
     var transaction1 = {
       getType : function() { return 'Deposit' },
       getValue : function() { return 100 },
-      getDate : function() { return '10/01/17'; }
+      getDate : function() { return '10/01/17'; },
+      setBalance : function() {}
     }
     var transaction2 = {
       getType : function() { return 'Deposit' },
       getValue : function() { return 150 },
-      getDate : function() { return '11/01/17'; }
+      getDate : function() { return '11/01/17'; },
+      setBalance : function() {}
     }
     var transaction3 = {
       getType : function() { return 'Withdrawal' },
       getValue : function() { return 50 },
-      getDate : function() { return '12/01/17'; }
+      getDate : function() { return '12/01/17'; },
+      setBalance : function() {}
     }
 
     account.processTransaction(transaction1)
