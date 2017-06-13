@@ -4,7 +4,8 @@ var printer;
 describe('Printer', function(){
 
   beforeEach(function(){
-    printer = new Printer()
+    var TransactionTypeGetter = function (){}
+    printer = new Printer(TransactionTypeGetter)
   })
 
   it('can be instantiated', function(){
