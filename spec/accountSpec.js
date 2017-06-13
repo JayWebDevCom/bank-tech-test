@@ -69,7 +69,7 @@ describe('Account', function () {
   })
 })
 
-describe('Account Transaction Processing', function () {
+describe('Account - Transaction Processing', function () {
   beforeEach(function () {
     account = new Account(0, AccountHistoryConstructor)
   })
