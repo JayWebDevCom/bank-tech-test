@@ -17,7 +17,6 @@ describe('Printer', function () {
   })
 
   it('takes an object and formats and prints it\'s transaction information', function () {
-
     var transaction1 = {
       getType: function () { return 'Deposit' },
       getValue: function () { return 450 },
