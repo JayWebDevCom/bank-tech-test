@@ -1,11 +1,12 @@
 var Printer = require('../lib/printer');
 var printer;
+var FakeTransactionTypeGetter;
 
 describe('Printer', function(){
 
   beforeEach(function(){
-    var TransactionTypeGetter = function (){}
-    printer = new Printer(TransactionTypeGetter)
+    FakeTransactionTypeGetter = function (){}
+    printer = new Printer(FakeTransactionTypeGetter)
   })
 
   it('can be instantiated', function(){
@@ -45,8 +46,15 @@ describe('Printer', function(){
     "date || credit || debit || balance\n"
     +transaction3.getDate() +" ||  || "+transaction3.getValue()+" || " + transaction3.getBalance() + "\n"
     +transaction2.getDate() +" ||  || "+transaction2.getValue()+" || " + transaction2.getBalance() + "\n"
-    +transaction1.getDate() +" || "+transaction1.getValue()+" ||  || " + transaction1.getBalance() + "\n"
+    +transaction1.getDate() +" || "+transaction1.getValue()+" ||  || " + transaction1.getBalance() + "\n";
 
+    var FakeTransactionTypeGetter = function() { };
+
+    FakeTransactionTypeGetter.prototype.getTransactionType = function (transactionObject) {
+      return transactionObject.getType();
+    }
+    
+    var printer = new Printer(FakeTransactionTypeGetter)
     expect(printer.printStatement(accountHistoryObject)).toEqual(textToBeReturned)
   })
 
