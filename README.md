@@ -19,10 +19,10 @@ have a statement printed detailing the transactions processed and the balance ch
 
 ```
 date || credit || debit || balance
-10/07/2015 ||  || 300 || 100
-08/07/2015 ||  || 200 || 400
-09/07/2015 || 100 ||  || 600
-07/07/2015 || 500 ||  || 500
+10/07/2015 ||  || 300.00 || 100.00
+08/07/2015 ||  || 200.00 || 400.00
+09/07/2015 || 100.00 ||  || 600.00
+07/07/2015 || 500.00 ||  || 500.00
 ```
 
 #### Further Description

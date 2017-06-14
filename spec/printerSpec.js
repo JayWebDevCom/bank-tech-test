@@ -42,9 +42,9 @@ describe('Printer', function () {
     }
     var textToBeReturned =
     'date || credit || debit || balance\n' +
-    transaction3.getDate() + ' ||  || ' + transaction3.getValue() + ' || ' + transaction3.getBalance() + '\n' +
-    transaction2.getDate() + ' ||  || ' + transaction2.getValue() + ' || ' + transaction2.getBalance() + '\n' +
-    transaction1.getDate() + ' || ' + transaction1.getValue() + ' ||  || ' + transaction1.getBalance() + '\n'
+    transaction3.getDate() + ' ||  || ' + transaction3.getValue().toFixed(2) + ' || ' + transaction3.getBalance().toFixed(2) + '\n' +
+    transaction2.getDate() + ' ||  || ' + transaction2.getValue().toFixed(2) + ' || ' + transaction2.getBalance().toFixed(2) + '\n' +
+    transaction1.getDate() + ' || ' + transaction1.getValue().toFixed(2) + ' ||  || ' + transaction1.getBalance().toFixed(2) + '\n'
 
     var FakeTransactionTypeGetter = function () { }
 
