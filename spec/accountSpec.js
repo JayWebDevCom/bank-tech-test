@@ -55,7 +55,12 @@ describe('Account', function () {
     }).toThrowError('Account balance must not be negative')
   })
 
-  it('has a transaction history object', function () {
+  it('has a TransactionTypeGetter object', function () {
+    var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    expect(account._transactionTypeGetter instanceof TransactionTypeGetterConstructor).toBe(true)
+  })
+
+  it('has a TransactionHistoryObject', function () {
     var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
     expect(account._accountHistoryObject instanceof AccountHistoryConstructor).toBe(true)
   })
@@ -96,7 +101,6 @@ describe('Account - Transaction Processing', function () {
       getDate: function () { return '' },
       setBalance: function () {}
     }
-
     account.receiveTransactions(transaction1, transaction2)
     expect(account.getBalance()).toEqual(1)
   })
