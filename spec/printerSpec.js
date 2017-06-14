@@ -5,6 +5,9 @@ var FakeTransactionTypeGetter
 describe('Printer', function () {
   beforeEach(function () {
     FakeTransactionTypeGetter = function () { }
+    FakeTransactionTypeGetter.prototype.getTransactionType = function (transactionObject) {
+      return transactionObject.getType()
+    }
     printer = new Printer(FakeTransactionTypeGetter)
   })
 
@@ -46,13 +49,6 @@ describe('Printer', function () {
     transaction2.getDate() + ' ||  || ' + transaction2.getValue().toFixed(2) + ' || ' + transaction2.getBalance().toFixed(2) + '\n' +
     transaction1.getDate() + ' || ' + transaction1.getValue().toFixed(2) + ' ||  || ' + transaction1.getBalance().toFixed(2) + '\n'
 
-    var FakeTransactionTypeGetter = function () { }
-
-    FakeTransactionTypeGetter.prototype.getTransactionType = function (transactionObject) {
-      return transactionObject.getType()
-    }
-
-    var printer = new Printer(FakeTransactionTypeGetter)
     expect(printer.printStatement(accountHistoryObject)).toEqual(textToBeReturned)
   })
 })
