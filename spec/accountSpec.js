@@ -57,7 +57,7 @@ describe('Account', function () {
 
   it('has a transaction history object', function () {
     var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
-    expect(account._accountHistoryObject instanceof AccountHistoryConstructor, TransactionTypeGetterConstructor).toBe(true)
+    expect(account._accountHistoryObject instanceof AccountHistoryConstructor).toBe(true)
   })
 
   it('isTransactionADeposit function uses DI to determine trasaction type', function () {
