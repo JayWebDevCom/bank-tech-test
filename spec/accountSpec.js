@@ -1,22 +1,22 @@
 var Account = require('../lib/account')
-var account
-var AccountHistoryConstructor = function () {
-  this._transactions = []
-}
-AccountHistoryConstructor.prototype.getTransactions = function () {
-  return this._transactions
-}
-
-AccountHistoryConstructor.prototype.record = function (object) {
-  this._transactions.push(object)
-}
-
-var TransactionTypeGetterConstructor = function () {
-
-}
+var AccountHistoryConstructor; var account; var TransactionTypeGetterConstructor
 
 describe('Account', function () {
   beforeEach(function () {
+    AccountHistoryConstructor = function () {
+      this._transactions = []
+    }
+    AccountHistoryConstructor.prototype.getTransactions = function () {
+      return this._transactions
+    }
+
+    AccountHistoryConstructor.prototype.record = function (object) {
+      this._transactions.push(object)
+    }
+
+    TransactionTypeGetterConstructor = function () {
+
+    }
     account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
   })
 
