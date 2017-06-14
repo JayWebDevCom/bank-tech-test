@@ -74,7 +74,12 @@ describe('Account', function () {
 })
 
 describe('Account - Transaction Processing', function () {
+  var account; var TransactionTypeGetterConstructor
   beforeEach(function () {
+    TransactionTypeGetterConstructor = function () {}
+    TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
+      return transaction.getType()
+    }
     account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
   })
 
@@ -91,11 +96,7 @@ describe('Account - Transaction Processing', function () {
       getDate: function () { return '' },
       setBalance: function () {}
     }
-    var TransactionTypeGetterConstructor = function () {}
-    TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
-      return transaction.getType()
-    }
-    var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+
     account.receiveTransactions(transaction1, transaction2)
     expect(account.getBalance()).toEqual(1)
   })
@@ -107,19 +108,6 @@ describe('Account - Transaction Processing', function () {
       getDate: function () { return '' },
       setBalance: function () {}
     }
-
-    var FakeAccountHistory = function () {}
-    FakeAccountHistory.prototype.record = function () {}
-
-    var FakeTransactionTypeGetterConstructor = function () {}
-    FakeTransactionTypeGetterConstructor.prototype.getTransactionType = function () { return 'Deposit' }
-    /* initialiization below is done to to confine scope */
-    var AccountHistoryConstructor; var TransactionTypeGetterConstructor
-    var account = new Account(
-      balance = 0,
-      AccountHistoryConstructor = FakeAccountHistory,
-      TransactionTypeGetterConstructor = FakeTransactionTypeGetterConstructor)
-
     spyOn(account._transactionTypeGetter, 'getTransactionType')
     account.receiveTransactions(transaction)
     expect(account._transactionTypeGetter.getTransactionType).toHaveBeenCalledWith(transaction);
@@ -132,19 +120,6 @@ describe('Account - Transaction Processing', function () {
       getDate: function () { return '' },
       setBalance: function () {}
     }
-
-    var FakeAccountHistory = function () {}
-    FakeAccountHistory.prototype.record = function () {}
-    FakeAccountHistory.prototype.getTransactions = function () {}
-
-    var FakeTransactionTypeGetterConstructor = function () {}
-    FakeTransactionTypeGetterConstructor.prototype.getTransactionType = function () { return 'Deposit' }
-    var AccountHistoryConstructor; var TransactionTypeGetterConstructor
-    var account = new Account(
-      balance = 0,
-      AccountHistoryConstructor = FakeAccountHistory,
-      TransactionTypeGetterConstructor = FakeTransactionTypeGetterConstructor)
-
     spyOn(account._accountHistoryObject, 'record')
     account.receiveTransactions(transaction)
     expect(account._accountHistoryObject.record).toHaveBeenCalledWith(transaction)
@@ -157,11 +132,6 @@ describe('Account - Transaction Processing', function () {
       getDate: function () { return '' },
       setBalance: function () {}
     }
-    var TransactionTypeGetterConstructor = function () {}
-    TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
-      return transaction.getType()
-    }
-    var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
     account.receiveTransactions(transaction)
     expect(account.getBalance()).toEqual(200)
   })
@@ -174,12 +144,6 @@ describe('Account - Transaction Processing', function () {
       setBalance: function () {}
     }
 
-    var TransactionTypeGetterConstructor = function () {}
-    TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
-      return transaction.getType()
-    }
-    var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
-
     account.receiveTransactions(transaction)
     expect(account.getBalance()).toEqual(200)
   })
@@ -191,11 +155,7 @@ describe('Account - Transaction Processing', function () {
       getDate: function () { return '10/10/2017' },
       setBalance: function () {}
     }
-    var TransactionTypeGetterConstructor = function () {}
-    TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
-      return transaction.getType()
-    }
-    var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+
     account.receiveTransactions(transaction)
     expect(account.getBalance()).toEqual(250)
     expect(account._accountHistoryObject.getTransactions()[0]).toEqual(transaction)
@@ -208,11 +168,7 @@ describe('Account - Transaction Processing', function () {
       getDate: function () { return '01/10/2017' },
       setBalance: function () {}
     }
-    var TransactionTypeGetterConstructor = function () {}
-    TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
-      return transaction.getType()
-    }
-    var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+
     account.receiveTransactions(transaction)
     expect(account.getBalance()).toEqual(-100)
     expect(account._accountHistoryObject.getTransactions()[0]).toEqual(transaction)
@@ -220,19 +176,16 @@ describe('Account - Transaction Processing', function () {
 })
 
 describe('Account Feature Spec', function () {
+  var TransactionTypeGetterConstructor; var account
   beforeEach(function () {
-    account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor);
-  })
-
-  it('records several transactions', function () {
-
-    var TransactionTypeGetterConstructor = function () {}
+    TransactionTypeGetterConstructor = function () {}
     TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
       return transaction.getType()
     }
-    var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+  })
 
-
+  it('records several transactions', function () {
     expect(account.getBalance()).toEqual(0)
     var transaction1 = {
       getType: function () { return 'Deposit' },
@@ -253,13 +206,6 @@ describe('Account Feature Spec', function () {
       setBalance: function () {}
     }
 
-    var TransactionTypeGetterConstructor = function () {}
-    TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
-      return transaction.getType()
-    }
-
-
-
     account.receiveTransactions(transaction1)
     account.receiveTransactions(transaction2)
     account.receiveTransactions(transaction3)
@@ -273,7 +219,6 @@ describe('Account Feature Spec', function () {
     var FakePrinter = {
       printStatement: function () { return textToTestAgainst }
     }
-
 
     expect(account.getBalance()).toEqual(200)
     expect(account.getAccountHistory(FakePrinter)).toEqual(textToTestAgainst)
