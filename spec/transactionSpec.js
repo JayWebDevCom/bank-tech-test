@@ -3,15 +3,16 @@ var transaction
 
 describe('Transaction', function () {
   beforeEach(function () {
-    transaction = new Transaction('Deposit', 0, '01/01/16')
+    withdrawalTransaction = new Transaction('Withdrawal', 0, '01/01/16')
+    depositTransaction = new Transaction('Deposit', 0, '01/01/16')
   })
 
   it('can be instantiated', function () {
-    expect(transaction instanceof Transaction).toBe(true)
+    expect(depositTransaction instanceof Transaction).toBe(true)
   })
 
   it('has a default value of 0 upon instantiation', function () {
-    expect(transaction._value).toEqual(0)
+    expect(depositTransaction._value).toEqual(0)
   })
 
   it('cannot be instantiated without a date', function () {
@@ -20,10 +21,19 @@ describe('Transaction', function () {
     }).toThrowError('Invalid Date Entered')
   })
 
-  it('cannot be instantiated with in invalid a date', function () {
+  it('cannot be instantiated with an invalid a date', function () {
     expect(function () {
       var transaction = new Transaction('Withdrawal', 0, '2017/9/16')
     }).toThrowError('Invalid Date Entered')
+  })
+
+  it('takes a date attribute', function () {
+    expect(depositTransaction._date).toBeTruthy()
+  })
+
+  it('getDate method returns the date', function () {
+    expect(depositTransaction.getDate()).toEqual('01/01/16')
+    expect(withdrawalTransaction.getDate()).toEqual('01/01/16')
   })
 
   it('can be instantiated with a value', function () {
@@ -41,18 +51,15 @@ describe('Transaction', function () {
   })
 
   it('can be of type deposit', function () {
-    var transaction = new Transaction('Deposit', 0, '01/01/16')
-    expect(transaction.getType()).toEqual('Deposit')
+    expect(depositTransaction.getType()).toEqual('Deposit')
   })
 
   it('can be of type Withdrawal', function () {
-    var transaction = new Transaction('Withdrawal', 0, '01/01/16')
-    expect(transaction._type).toEqual('Withdrawal')
+    expect(withdrawalTransaction._type).toEqual('Withdrawal')
   })
 
   it('can get its type', function () {
-    var transaction = new Transaction('Withdrawal', 0, '01/01/16')
-    expect(transaction.getType()).toEqual('Withdrawal')
+    expect(withdrawalTransaction.getType()).toEqual('Withdrawal')
   })
 
   it('can only be of type Withdrawal or Deposit', function () {
@@ -63,29 +70,19 @@ describe('Transaction', function () {
 
   it('can get its value', function () {
     var transaction = new Transaction('Deposit', 500, '01/01/16')
-    expect(transaction).toBeTruthy()
     expect(transaction.getValue()).toEqual(500)
   })
 
-  it('takes a date attribute', function () {
-    var transaction = new Transaction('Deposit', 500, '01/17/2016')
-    expect(transaction._date).toBeTruthy()
-  })
-
-  it('getDate method returns the date', function () {
-    var transaction = new Transaction('Deposit', 500, '03/17/2016')
-    expect(transaction.getDate()).toEqual('03/17/2016')
-  })
 
   it('setBalance method records balance', function () {
     var balance = 345
-    transaction.setBalance(balance)
-    expect(transaction._balance).toEqual(balance)
+    withdrawalTransaction.setBalance(balance)
+    expect(withdrawalTransaction._balance).toEqual(balance)
   })
 
   it('getBalance method records balance', function () {
     var balance = 346
-    transaction.setBalance(balance)
-    expect(transaction.getBalance()).toEqual(balance);
+    depositTransaction.setBalance(balance)
+    expect(depositTransaction.getBalance()).toEqual(balance);
   })
 })
