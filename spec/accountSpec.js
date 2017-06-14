@@ -104,6 +104,7 @@ describe('Account - Transaction Processing', function () {
 
     var FakeTransactionTypeGetterConstructor = function () {}
     FakeTransactionTypeGetterConstructor.prototype.getTransactionType = function () { return 'Deposit' }
+    /* initialiization below is done to to confine scope */
     var AccountHistoryConstructor; var TransactionTypeGetterConstructor
     var account = new Account(
       balance = 0,
@@ -112,7 +113,7 @@ describe('Account - Transaction Processing', function () {
 
     spyOn(account._transactionTypeGetter, 'getTransactionType')
     account.receiveTransactions(transaction)
-    expect(account._transactionTypeGetter.getTransactionType).toHaveBeenCalled();
+    expect(account._transactionTypeGetter.getTransactionType).toHaveBeenCalledWith(transaction);
   })
 
   it('receiveTransaction passes transaction on to it\'s AccountHistory Object', function () {
@@ -137,7 +138,7 @@ describe('Account - Transaction Processing', function () {
 
     spyOn(account._accountHistoryObject, 'record')
     account.receiveTransactions(transaction)
-    expect(account._accountHistoryObject.record).toHaveBeenCalled()
+    expect(account._accountHistoryObject.record).toHaveBeenCalledWith(transaction)
   })
 
   it('receiveTransaction function takes a deposit object and adjust its balance appropritely', function () {
