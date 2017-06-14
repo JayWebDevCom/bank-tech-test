@@ -74,6 +74,23 @@ describe('Account - Transaction Processing', function () {
     account = new Account(0, AccountHistoryConstructor)
   })
 
+  it('can process multiple transactions at once', function () {
+    var transaction1 = {
+      getType: function () { return 'Deposit' },
+      getValue: function () { return 200 },
+      getDate: function () { return '' },
+      setBalance: function () {}
+    }
+    var transaction2 = {
+      getType: function () { return 'Withdrawal' },
+      getValue: function () { return 199 },
+      getDate: function () { return '' },
+      setBalance: function () {}
+    }
+    account.receiveTransactions(transaction1, transaction2)
+    expect(account.getBalance()).toEqual(1)
+  })
+
   it('receiveTransaction passes transaction on to it\'s TransactionTypeGetter Object', function () {
     var transaction = {
       getType: function () { return 'Deposit' },
