@@ -1,5 +1,5 @@
 var Account = require('../lib/account')
-var AccountHistoryConstructor; var account; var TransactionTypeGetterConstructor
+var AccountHistoryConstructor, account, TransactionTypeGetterConstructor, deposit, withdrawal
 
 describe('Account', function () {
   beforeEach(function () {
@@ -55,31 +55,31 @@ describe('Account', function () {
     }).toThrowError('Account balance must not be negative')
   })
 
-  it('has a TransactionTypeGetter object', function () {
-    var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
-    expect(account._transactionTypeGetter instanceof TransactionTypeGetterConstructor).toBe(true)
-  })
-
   it('has a TransactionHistoryObject', function () {
     var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
     expect(account._accountHistoryObject instanceof AccountHistoryConstructor).toBe(true)
   })
 
-  it('isTransactionADeposit function uses DI to determine trasaction type', function () {
-    var transaction = {
-      getType: function () { return 'Deposit' }
-    }
-    var MockTransactionTypeGetterConstructor = function () {}
-    MockTransactionTypeGetterConstructor.prototype.getTransactionType = function (transactionObject) {
-      return transactionObject.getType()
-    }
-    var account = new Account(0, AccountHistoryConstructor, MockTransactionTypeGetterConstructor)
-    expect(account._transactionTypeGetter.getTransactionType(transaction)).toEqual('Deposit')
-  })
 })
 
 describe('Account - Transaction Processing', function () {
   var account; var TransactionTypeGetterConstructor
+
+  deposit = {
+    getType: function () { return 'Deposit' },
+    getValue: function () { return 200 },
+    getDate: function () { return '' },
+    setBalance: function () {}
+  }
+
+  withdrawal = {
+    getType: function () { return 'Withdrawal' },
+    getValue: function () { return 200 },
+    getDate: function () { return '' },
+    setBalance: function () {}
+  }
+
+
   beforeEach(function () {
     TransactionTypeGetterConstructor = function () {}
     TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
@@ -105,16 +105,15 @@ describe('Account - Transaction Processing', function () {
     expect(account.getBalance()).toEqual(1)
   })
 
-  it('receiveTransaction passes transaction on to it\'s TransactionTypeGetter Object', function () {
-    var transaction = {
-      getType: function () { return 'Deposit' },
-      getValue: function () { return 200 },
-      getDate: function () { return '' },
-      setBalance: function () {}
-    }
-    spyOn(account._transactionTypeGetter, 'getTransactionType')
-    account.receiveTransactions(transaction)
-    expect(account._transactionTypeGetter.getTransactionType).toHaveBeenCalledWith(transaction);
+  it('can change it\'s balance based on transaction type - deposit', function () {
+    account.changeBalance(deposit)
+    expect(account.getBalance()).toEqual(200)
+  })
+
+  it('can change it\'s balance based on transaction type - withdrawal', function () {
+    var account = new Account(300, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    account.changeBalance(withdrawal)
+    expect(account.getBalance()).toEqual(100)
   })
 
   it('receiveTransaction passes transaction on to it\'s AccountHistory Object', function () {
