@@ -3,17 +3,18 @@ var transaction
 
 describe('Transaction', function () {
   beforeEach(function () {
-    withdrawalTransaction = new Transaction('Withdrawal', 0, '01/01/16')
-    depositTransaction = new Transaction('Deposit', 0, '01/01/16')
+    withdrawalTransaction = new Transaction('Withdrawal', 250, '01/01/16')
+    depositTransaction = new Transaction('Deposit', 150, '01/01/16')
   })
 
   it('can be instantiated', function () {
     expect(depositTransaction instanceof Transaction).toBe(true)
   })
 
-  it('has a default value of 0 upon instantiation', function () {
-    expect(depositTransaction._value).toEqual(0)
-  })
+  // it('has a default value of 0 upon instantiation', function () {
+  //   var transaction = new Transaction()
+  //   expect(depositTransaction._value).toEqual(0)
+  // })
 
   it('cannot be instantiated without a date', function () {
     expect(function () {
@@ -73,7 +74,6 @@ describe('Transaction', function () {
     expect(transaction.getValue()).toEqual(500)
   })
 
-
   it('setBalance method records balance', function () {
     var balance = 345
     withdrawalTransaction.setBalance(balance)
@@ -84,5 +84,21 @@ describe('Transaction', function () {
     var balance = 346
     depositTransaction.setBalance(balance)
     expect(depositTransaction.getBalance()).toEqual(balance);
+  })
+
+  it('getDepositOutput aaaaaaa returns appropriate information', function () {
+    expect(depositTransaction.getDepositOutput()).toEqual(150.00);
+  })
+
+  it('getWithdrawal returns appropriate information', function () {
+    expect(depositTransaction.getWithdrawalOutput()).toEqual(' ');
+  })
+
+  it('getDepositOutput returns appropriate information', function () {
+    expect(withdrawalTransaction.getDepositOutput()).toEqual(' ');
+  })
+
+  it('getWithdrawal bbbbbb returns appropriate information', function () {
+    expect(withdrawalTransaction.getWithdrawalOutput()).toEqual(250.00);
   })
 })
