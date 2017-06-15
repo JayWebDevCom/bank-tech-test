@@ -1,5 +1,5 @@
 var Account = require('../lib/account')
-var AccountHistoryConstructor, account, TransactionTypeGetterConstructor, deposit, withdrawal
+var AccountHistoryConstructor, account, deposit, withdrawal
 
 describe('Account', function () {
   beforeEach(function () {
@@ -14,10 +14,7 @@ describe('Account', function () {
       this._transactions.push(object)
     }
 
-    TransactionTypeGetterConstructor = function () {
-
-    }
-    account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    account = new Account(0, AccountHistoryConstructor)
   })
 
   it('can be instantiated', function () {
@@ -29,12 +26,12 @@ describe('Account', function () {
   })
 
   it('can be instantiated with an amount', function () {
-    var account = new Account(200, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    var account = new Account(200, AccountHistoryConstructor)
     expect(account._balance).toEqual(200)
   })
 
   it('can get its balance', function () {
-    var account = new Account(200, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    var account = new Account(200, AccountHistoryConstructor)
     expect(account.getBalance()).toEqual(200)
   })
 
@@ -44,26 +41,26 @@ describe('Account', function () {
   })
 
   it('can reduce it\'s balance', function () {
-    var account = new Account(200, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    var account = new Account(200, AccountHistoryConstructor)
     account.reduceBalance(50)
     expect(account.getBalance()).toEqual(150)
   })
 
   it('cannot be instantiated with a negative amount', function () {
     expect(function () {
-      account = new Account(-1, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+      account = new Account(-1, AccountHistoryConstructor)
     }).toThrowError('Account balance must not be negative')
   })
 
   it('has a TransactionHistoryObject', function () {
-    var account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    var account = new Account(0, AccountHistoryConstructor)
     expect(account._accountHistoryObject instanceof AccountHistoryConstructor).toBe(true)
   })
 
 })
 
 describe('Account - Transaction Processing', function () {
-  var account; var TransactionTypeGetterConstructor
+  var account;
 
   deposit = {
     getType: function () { return 'Deposit' },
@@ -81,11 +78,7 @@ describe('Account - Transaction Processing', function () {
 
 
   beforeEach(function () {
-    TransactionTypeGetterConstructor = function () {}
-    TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
-      return transaction.getType()
-    }
-    account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    account = new Account(0, AccountHistoryConstructor)
   })
 
   it('can process multiple transactions at once', function () {
@@ -111,7 +104,7 @@ describe('Account - Transaction Processing', function () {
   })
 
   it('can change it\'s balance based on transaction type - withdrawal', function () {
-    var account = new Account(300, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    var account = new Account(300, AccountHistoryConstructor)
     account.changeBalance(withdrawal)
     expect(account.getBalance()).toEqual(100)
   })
@@ -179,13 +172,8 @@ describe('Account - Transaction Processing', function () {
 })
 
 describe('Account Feature Spec', function () {
-  var TransactionTypeGetterConstructor; var account
   beforeEach(function () {
-    TransactionTypeGetterConstructor = function () {}
-    TransactionTypeGetterConstructor.prototype.getTransactionType = function (transaction) {
-      return transaction.getType()
-    }
-    account = new Account(0, AccountHistoryConstructor, TransactionTypeGetterConstructor)
+    account = new Account(0, AccountHistoryConstructor)
   })
 
   it('records several transactions', function () {
